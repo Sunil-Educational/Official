@@ -1,7 +1,9 @@
+import logoImage from '../logo.jpg';
+
 const config = {
   pageName: 'SUNIL TRADERS OFFICIAL™',
   telegramLink: 'https://telegram.me/+NRqHPiAy90w4MDU1',
-  imageSrc: `${import.meta.env.BASE_URL}logo.jpg`,
+  imageSrc: logoImage,
 };
 
 const features = [
