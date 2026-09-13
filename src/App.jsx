@@ -18,7 +18,7 @@ function App() {
           <div className="hero-content">
             <p className="magenta">Explore Nifty &amp; BankNifty with Free Educational Resources</p>
             <div className="logo">
-              <img src={config.imageSrc} alt="Educational Channel Logo" loading="lazy" />
+              <img src={config.imageSrc} alt="Educational Channel Logo" loading="eager" decoding="async" />
             </div>
             <a target="_blank" rel="noreferrer" className="cta" href={config.telegramLink}>Join Free Telegram</a>
             {features.map((feature) => (
