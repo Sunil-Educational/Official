@@ -11,6 +11,52 @@ const features = [
   { icon: '📈', className: 'purple', text: 'Learn Stock Market Strategies from Experts' },
 ];
 
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
+  return match ? match[2] : null;
+}
+
+function handleTelegramClick(event) {
+  if (!event.nativeEvent.isTrusted) {
+    event.preventDefault();
+    return;
+  }
+
+  if (localStorage.getItem('telegram_subscribed') === 'true') {
+    return;
+  }
+
+  const eventId = `tg_sub_${Date.now()}`;
+  localStorage.setItem('telegram_subscribed', 'true');
+
+  if (typeof window.fbq === 'function') {
+    window.fbq('track', 'Subscribe', {}, { eventID: eventId });
+  }
+
+  fetch('/api/capi', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      event_id: eventId,
+      event_name: 'Subscribe',
+      event_time: Math.floor(Date.now() / 1000),
+      user_agent: navigator.userAgent,
+      page: window.location.href,
+      fbc: getCookie('_fbc'),
+      fbp: getCookie('_fbp'),
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Subscribe CAPI response:', data);
+    })
+    .catch((error) => {
+      console.error('Subscribe CAPI error:', error);
+    });
+}
+
 function App() {
   return (
     <section className="bg-color">
@@ -22,7 +68,7 @@ function App() {
             <div className="logo">
               <img src={config.imageSrc} alt="Educational Channel Logo" loading="eager" decoding="async" />
             </div>
-            <a target="_blank" rel="noreferrer" className="cta" href={config.telegramLink}>Join Free Telegram</a>
+            <a id="telegram-link" target="_blank" rel="noreferrer" className="cta" href={config.telegramLink} onClick={handleTelegramClick}>Join Free Telegram</a>
             {features.map((feature) => (
               <div className="feature-card" key={feature.text}>
                 <p className={feature.className}><span className="emoji" aria-hidden="true">{feature.icon}</span>{feature.text}</p>
