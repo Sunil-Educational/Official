@@ -33,29 +33,7 @@ function handleTelegramClick(event) {
     window.fbq('track', 'Subscribe', {}, { eventID: eventId });
   }
 
-  fetch('/api/capi', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      event_id: eventId,
-      event_name: 'Subscribe',
-      event_time: Math.floor(Date.now() / 1000),
-      user_agent: navigator.userAgent,
-      page: window.location.href,
-      fbc: getCookie('_fbc'),
-      fbp: getCookie('_fbp'),
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Subscribe CAPI response:', data);
-    })
-    .catch((error) => {
-      console.error('Subscribe CAPI error:', error);
-    });
-}
+ 
 
 function App() {
   return (
