@@ -31,6 +31,7 @@ function handleTelegramClick(event) {
 
   if (typeof window.fbq === 'function') {
     window.fbq('track', 'Subscribe', {}, { eventID: eventId });
+   }
   }
 
  
