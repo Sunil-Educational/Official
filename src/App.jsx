@@ -11,30 +11,7 @@ const features = [
   { icon: '📈', className: 'purple', text: 'Learn Stock Market Strategies from Experts' },
 ];
 
-function getCookie(name) {
-  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
-  return match ? match[2] : null;
-}
 
-function handleTelegramClick(event) {
-  if (!event.nativeEvent.isTrusted) {
-    event.preventDefault();
-    return;
-  }
-
-  if (localStorage.getItem('telegram_subscribed') === 'true') {
-    return;
-  }
-
-  const eventId = `tg_sub_${Date.now()}`;
-  localStorage.setItem('telegram_subscribed', 'true');
-
-  if (typeof window.fbq === 'function') {
-    window.fbq('track', 'Subscribe', {}, { eventID: eventId });
-   }
-  }
-
- 
 
 function App() {
   return (
@@ -47,7 +24,7 @@ function App() {
             <div className="logo">
               <img src={config.imageSrc} alt="Educational Channel Logo" loading="eager" decoding="async" />
             </div>
-            <a id="telegram-link" target="_blank" rel="noreferrer" className="cta" href={config.telegramLink} onClick={handleTelegramClick}>Join Free Telegram</a>
+            <a id="telegram-link" target="_blank" rel="noreferrer" className="cta" href={config.telegramLink}>Join Free Telegram</a>
             {features.map((feature) => (
               <div className="feature-card" key={feature.text}>
                 <p className={feature.className}><span className="emoji" aria-hidden="true">{feature.icon}</span>{feature.text}</p>
